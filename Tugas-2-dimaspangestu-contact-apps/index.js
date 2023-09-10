@@ -54,18 +54,18 @@ function mainMenu(pilihan) { // fungsi untuk mengatur pilihan menu
 
 function simpan() { // fungsi untuk menyimpan data
     console.log("Silahkan Masukan Data ! : ");
-    readline.question("Nama :", nama => {
-        if(typeof nama !== "string"){
-            console.log("Masukan nama dengan benar");
-            kembali()
-        }else {
-            console.log(`Hallo ${nama}, datamu telah berhasil di input`);
-            objectKontak.nama = nama
-            ambilInputanNomor();
-        }
-    })
-    
-}
+        readline.question("Nama : ", (nama) => {
+            let nonNumberRegex = /^[^\d]+$/;
+            if(nonNumberRegex.test(nama)){
+                objectKontak.nama = nama;
+                console.log(`Hallo ${nama}, namamu berhasil di input`)
+            }else{
+                console.log("Masukan nama yang valid");
+                kembali();
+            }
+        })
+    }
+
 const ambilInputanNomor = () => { // fungsi untuk mengambil inputan nomor
     readline.question("Nomor :", (nomor) => {
        const nomorHP = parseInt(nomor);
@@ -111,11 +111,11 @@ function pencarianData () {
     readline.question("Masukan Nama Atau inisial untuk mendapatkan data :" , (i) => {
         const inisial = i;
 
-        const searchByInisial = databaseKontak.filter((name) => {
-           return name.nama.includes(inisial)
+        const searchByInisial = databaseKontak.filter((data) => {
+           return data.nama.includes(inisial);
         })
 
-        console.log(searchByInisial);
+        console.table(searchByInisial);
         kembali();
     })
 }
