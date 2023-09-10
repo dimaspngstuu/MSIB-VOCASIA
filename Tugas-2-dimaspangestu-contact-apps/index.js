@@ -59,6 +59,7 @@ function simpan() { // fungsi untuk menyimpan data
             if(nonNumberRegex.test(nama)){
                 objectKontak.nama = nama;
                 console.log(`Hallo ${nama}, namamu berhasil di input`)
+                ambilInputanNomor();
             }else{
                 console.log("Masukan nama yang valid");
                 kembali();
@@ -69,18 +70,17 @@ function simpan() { // fungsi untuk menyimpan data
 const ambilInputanNomor = () => { // fungsi untuk mengambil inputan nomor
     readline.question("Nomor :", (nomor) => {
        const nomorHP = parseInt(nomor);
-       if(isNaN(nomorHP)){
+       if(isNaN(nomorHP) || objectKontak.nomorHp == nomorHP){
         console.log("Masukan Nomer HP Anda dengan Angka");
         kembali();
-       }else if(objectKontak.nomorHp == nomorHP){
-        console.log("Nomor HP yang anda masukan sudah terdata,Mohon masukan nomor HP yang lain");
-        kembali();
-       } else{
-        objectKontak.nomorHp =nomorHP;
-       }
-       
+        }
+        else {
+        objectKontak.nomorHp = nomorHP;
+       };
+
+        console.log("Nomer Hp Berhasil di masukan")
         databaseKontak.push({...objectKontak});
-        // databaseKontak.push(Object.assign({},objectKontak)) // insert data kedalam array databseKOntak
+     
 
         kembali()
     })
